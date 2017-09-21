@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
   
-    "name": "Getting started example",
-    "description": "This extension allows the user to change the background color of the current page.",
+    "name": "WindowShopping",
+    "description": "Obfuscates personal shopping data by randomly opening product pages.",
     "version": "1.0",
   
     "browser_action": {

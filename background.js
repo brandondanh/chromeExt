@@ -25,15 +25,16 @@ function randomSearch(site) {
       if (xhttpGet.readyState == 4 && xhttpGet.status == 200) {
         // do stuff here
         let searchUrl;
-        
+        var newWind;
         let searchTerm = xhttpGet.responseText;
         
         if (site === 'amazon') {
           searchUrl = ("https://duckduckgo.com/?q=!ducky+site%3Aamazon.com%2Fgp%2Fproduct+").concat(searchTerm);
-          var newWind = window.open(searchUrl);
+          newWind = window.open(searchUrl);
         }
         else if (site === 'ebay') {
-          var newWind = window.open("https://duckduckgo.com/?q=!ducky+site%3Aebay.com%2Fitm+" + searchTerm + "&ia=web").concat(searchTerm);
+          searchUrl = ("https://duckduckgo.com/?q=!ducky+site%3Aebay.com%2Fitm+" + searchTerm + "&ia=web").concat(searchTerm);
+          newWind = window.open(searchUrl);
         }
         
         setTimeout(function() {
