@@ -1,14 +1,3 @@
-// $(document).ready(function() {
-//   $.get("http://setgetgo.com/randomword/get.php",{},function(data){
-  // $.ajax({ url: 'http://setgetgo.com/randomword/get.php', success: function(data) { alert(data); } });
-  $.get('http://slack-server.elasticbeanstalk.com/messages')
-  .then(function(data) {
-    // document.getElementById('demo').innerHTML = data;
-    alert("boo");
-  });
-  
-
-
 const query = { active: true, currentWindow: true };
 function getURL() {
 
@@ -30,25 +19,31 @@ window.setInterval(getURL, 5000);
 
 function randomSearch(site) {
 
-  // $.ajax({ url: 'http://setgetgo.com/randomword/get.php', success: function(data) { alert(data); } });
-  let searchUrl;
-  // find random word for searchTerm
-  // $.ajax({ url: 'http://setgetgo.com/randomword/get.php', success: function(data) { 
-    let searchTerm = "tree";
-    
-      if (site === 'amazon') {
-        searchUrl = ("https://duckduckgo.com/?q=!ducky+site%3Aebay.com%2Fitm+er&ia=web").concat(searchTerm);
-        var newWind = window.open(searchUrl);
+  const URL = 'http://setgetgo.com/randomword/get.php';
+  const xhttpGet = new XMLHttpRequest();
+  xhttpGet.onreadystatechange = function() {
+      if (xhttpGet.readyState == 4 && xhttpGet.status == 200) {
+        // do stuff here
+        let searchUrl;
+        
+        let searchTerm = xhttpGet.responseText;
+        
+        if (site === 'amazon') {
+          searchUrl = ("https://duckduckgo.com/?q=!ducky+site%3Aamazon.com%2Fgp%2Fproduct+").concat(searchTerm);
+          var newWind = window.open(searchUrl);
+        }
+        else if (site === 'ebay') {
+          var newWind = window.open("https://duckduckgo.com/?q=!ducky+site%3Aebay.com%2Fitm+" + searchTerm + "&ia=web").concat(searchTerm);
+        }
+        
+        setTimeout(function() {
+          newWind.close();
+        }, 2500);
       }
-      else if (site === 'ebay') {
-        var newWind = window.open("https://www.ebay.com");
-      }
-      
-      setTimeout(function() {
-        newWind.close();
-      }, 1200);
+  }; 
 
-  // } });
-  
+  xhttpGet.open('GET', URL, true);
+  xhttpGet.send();
+
 }
 
